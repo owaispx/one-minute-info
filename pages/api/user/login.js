@@ -4,6 +4,8 @@ import User from "../../../models/usermodel";
 import connectdb from "../../../utils/conndb";
 import messagehandler from "../../../utils/features";
 
+const secretkey = process.env.SECRET_KEY;
+
 const handler = async (req, res) => {
   if (req.method !== "POST")
     return messagehandler(res, 400, "Only POST Method is allowed");
@@ -29,7 +31,7 @@ const handler = async (req, res) => {
       return messagehandler(res, 401, "Incorrect password");
     }
 
-    const token = await jwt.sign({ _id: user._id }, "secretkeykuchbhi");
+    const token = await jwt.sign({ _id: user._id }, secretkey);
 
     if (token) {
       res.status(200).json({ message: "Logged in succesfully", user , token });
