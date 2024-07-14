@@ -39,9 +39,10 @@ apiroute.post(async (req, res) => {
     const { title, source, description  } = req.body;
     console.log(req.body)
 
-    const image = req.file.path;
+     const image = req.file?.path;
 
-    if (!title || !source || !description) {
+    if (!title || !source || !description  ) {
+     
       return messagehandler(res, 402, "All credentials required");
     }
 
